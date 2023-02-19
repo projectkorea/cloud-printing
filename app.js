@@ -3,11 +3,13 @@ import qs from 'qs'
 import fetch from 'node-fetch'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import morgan from 'morgan'
 
 dotenv.config()
 
 const app = express()
 app.use(cors())
+app.use(morgan('dev'))
 
 const CONFIG = {
     url: 'https://kauth.kakao.com/oauth/token',
@@ -58,7 +60,7 @@ app.get('/oauth', (req, res) => {
     res.redirect(authorizationURI)
 })
 
-app.get(`/callback`, async (req, res) => {
+app.get('/callback', async (req, res) => {
     console.log(`app.get '/callback'`)
     CONFIG.code = req.query.code
     const token = await getAccessToken(CONFIG)
