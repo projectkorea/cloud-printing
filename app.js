@@ -53,11 +53,13 @@ const getUserInfo = async (url, access_token) => {
 }
 
 app.get('/oauth', (req, res) => {
+    console.log(`app.get '/oauth'`)
     const authorizationURI = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CONFIG.clientID}&redirect_uri=${CONFIG.redirectUri}`
     res.redirect(authorizationURI)
 })
 
 app.get(`/callback`, async (req, res) => {
+    console.log(`app.get '/callback'`)
     CONFIG.code = req.query.code
     const token = await getAccessToken(CONFIG)
     console.log('Success to get token', token)
@@ -67,6 +69,7 @@ app.get(`/callback`, async (req, res) => {
 })
 
 app.get('/', (req, res) => {
+    console.log(`app.get '/'`)
     res.sendFile('index.html', { root: 'public' })
 })
 
