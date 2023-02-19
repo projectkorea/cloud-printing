@@ -13,7 +13,7 @@ const CONFIG = {
     url: 'https://kauth.kakao.com/oauth/token',
     clientID: process.env.CLIENT_KEY,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'http://localhost:3001/callback',
+    redirectUri: 'https:/wiseprint.cloud/callback',
     code: null,
     userInfoUrl: 'https://kapi.kakao.com/v2/user/me',
 }
