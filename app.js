@@ -75,6 +75,11 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })
 })
 
+app.get('*', (req, res) => {
+    console.log(`app.get '/'`)
+    res.send('404 Not Found')
+})
+
 app.listen(3001, () => {
     console.log(`🌈Server started on port 3001`)
 })
