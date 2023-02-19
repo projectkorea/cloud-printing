@@ -1,59 +1,69 @@
 import express from 'express'
-import { AuthorizationCode } from 'simple-oauth2'
+import qs from 'qs'
+import fetch from 'node-fetch'
 import cors from 'cors'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 app.use(cors())
 
-const KAKAO = {
-    CLIENT_ID: 'ba0978cda441cd7c19ec044f0be74fbe',
-    // CLIENT_SECRET: 'rXxWfn0zwmuldPPsHERHC8Lt2xACl9yU',
+const CONFIG = {
+    url: 'https://kauth.kakao.com/oauth/token',
+    clientID: process.env.CLIENT_KEY,
+    clientSecret: process.env.CLIENT_SECRET,
+    redirectUri: 'http://localhost:3001/callback',
+    code: null,
+    userInfoUrl: 'https://kapi.kakao.com/v2/user/me',
 }
 
-const config = {
-    client: {
-        id: KAKAO.CLIENT_ID,
-        secret: KAKAO.CLIENT_SECRET,
-    },
-    auth: {
-        authorizePath: '/oauth/authorize',
-        tokenHost: 'https://kauth.kakao.com',
-        tokenPath: '/oauth/token',
-    },
-    options: {
-        bodyFormat: 'form',
-    },
+const getAccessToken = async (options) => {
+    try {
+        return await fetch(options.url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            },
+            body: qs.stringify({
+                grant_type: 'authorization_code',
+                client_id: options.clientID,
+                client_secret: options.clientSecret,
+                redirectUri: options.redirectUri,
+                code: options.code,
+            }),
+        }).then((res) => res.json())
+    } catch (e) {
+        logger.info('error', e)
+    }
 }
 
-console.log(config.client.id, config.client.secret)
+const getUserInfo = async (url, access_token) => {
+    try {
+        return await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+                Authorization: `Bearer ${access_token}`,
+            },
+        }).then((res) => res.json())
+    } catch (e) {
+        logger.info('error', e)
+    }
+}
+
 app.get('/oauth', (req, res) => {
-    const client = new AuthorizationCode(config)
-    const authorizationUri = client.authorizeURL({
-        redirect_uri: 'http://localhost:3001/callback',
-    })
-    console.log('authorizationUri', authorizationUri)
-    res.redirect(authorizationUri)
+    const authorizationURI = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CONFIG.clientID}&redirect_uri=${CONFIG.redirectUri}`
+    res.redirect(authorizationURI)
 })
 
-app.get('/callback', async (req, res) => {
-    const client = new AuthorizationCode(config)
-    const tokenParams = {
-        code: req.query.code,
-        redirect_uri: 'http://localhost:3001/callback',
-    }
-    const httpOptions = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
-    }
-    try {
-        const accessToken = await client.getToken(tokenParams, httpOptions)
-        console.log('✅ Access Token Success', accessToken)
-        res.send('Access token: ' + accessToken.token.access_token)
-    } catch (error) {
-        console.log('❌ Access Token Error', error)
-        res.send('Error: ' + error)
-    }
+app.get(`/callback`, async (req, res) => {
+    CONFIG.code = req.query.code
+    const token = await getAccessToken(CONFIG)
+    console.log('Success to get token', token)
+    const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
+
+    res.send(userInfo)
 })
 
 app.get('/', (req, res) => {
