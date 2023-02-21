@@ -1,3 +1,6 @@
+import qs from 'qs'
+import fetch from 'node-fetch'
+
 const CONFIG = {
     url: 'https://account.ezeep.com/oauth/access_token',
     clientID: process.env.CLIENT_ID,
@@ -11,8 +14,6 @@ export const oAuthCallback = async (req, res) => {
     const token = await getAccessToken(CONFIG)
     console.log('Success to get token', token)
     // const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
-
-    res.send(userInfo)
 }
 
 export const getUserInfo = async (url, access_token) => {

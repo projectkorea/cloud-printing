@@ -1,6 +1,4 @@
 import express from 'express'
-import qs from 'qs'
-import fetch from 'node-fetch'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
