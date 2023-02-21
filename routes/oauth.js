@@ -36,13 +36,12 @@ const getAccessToken = async (options) => {
         return await fetch(options.url, {
             method: 'POST',
             headers: {
-                'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
                 Authorization: `Basic ${auth}`,
             },
             body: qs.stringify({
                 grant_type: 'authorization_code',
                 scope: 'printing',
-                redirectUri: options.redirectUri,
+                redirect_uri: options.redirectUri,
                 code: options.code,
             }),
         }).then((res) => res.json())
