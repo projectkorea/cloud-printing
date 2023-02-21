@@ -46,7 +46,7 @@ const getAccessToken = async (options) => {
             }),
         }).then((res) => res.json())
     } catch (e) {
-        logger.info('error', e)
+        console.log('error', e)
     }
 }
 
