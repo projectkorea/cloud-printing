@@ -13,71 +13,35 @@ app.use(morgan('dev'))
 
 const CONFIG = {
     url: 'https://kauth.kakao.com/oauth/token',
-    clientID: process.env.CLIENT_KEY,
+    clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     redirectUri: 'https://wiseprint.cloud/callback',
     code: null,
     userInfoUrl: 'https://kapi.kakao.com/v2/user/me',
 }
 
-const getAccessToken = async (options) => {
-    try {
-        return await fetch(options.url, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-            },
-            body: qs.stringify({
-                grant_type: 'authorization_code',
-                client_id: options.clientID,
-                client_secret: options.clientSecret,
-                redirectUri: options.redirectUri,
-                code: options.code,
-            }),
-        }).then((res) => res.json())
-    } catch (e) {
-        logger.info('error', e)
-    }
-}
+// app.use('/oauth', (req, res) => {
+//     console.log(`app.get '/oauth'`)
+//     const authorizationURI = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CONFIG.clientID}&redirect_uri=${CONFIG.redirectUri}`
+//     res.redirect(authorizationURI)
+// })
 
-const getUserInfo = async (url, access_token) => {
-    try {
-        return await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-                Authorization: `Bearer ${access_token}`,
-            },
-        }).then((res) => res.json())
-    } catch (e) {
-        logger.info('error', e)
-    }
-}
+// app.use('/callback', async (req, res) => {
+//     console.log(`app.get '/callback'`)
+//     CONFIG.code = req.query.code
+//     const token = await getAccessToken(CONFIG)
+//     console.log('Success to get token', token)
+//     const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
 
-app.use('/oauth', (req, res) => {
-    console.log(`app.get '/oauth'`)
-    const authorizationURI = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CONFIG.clientID}&redirect_uri=${CONFIG.redirectUri}`
-    res.redirect(authorizationURI)
-})
+//     res.send(userInfo)
+// })
 
-app.use('/callback', async (req, res) => {
-    console.log(`app.get '/callback'`)
-    CONFIG.code = req.query.code
-    const token = await getAccessToken(CONFIG)
-    console.log('Success to get token', token)
-    const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
-
-    res.send(userInfo)
-})
+// app.use((req, res) => {
+//     res.status(404).redirect('/')
+// })
 
 app.get('/', (req, res) => {
-    console.log(`app.get '/'`)
     res.sendFile('index.html', { root: 'public' })
-})
-
-app.get('*', (req, res) => {
-    console.log(`app.get '/'`)
-    res.send('404 Not Found')
 })
 
 app.listen(3001, () => {

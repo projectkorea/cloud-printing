@@ -12,18 +12,20 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <script type="module" src="https://cdn.ezeep.com/ezeep-js/ezeep.esm.js"></script>
+        <script nomodule src="https://cdn.ezeep.com/ezeep-js/ezeep.js"></script>
     </head>
     <body>
         <section style="flex-direction: column; align-items: center">
-            <div>
-                <a href="./oauth">
-                    <button>카카오 로그인</button>
-                </a>
-            </div>
-            <div>
-                <h1>로그인 정보</h1>
-                <div id="info"></div>
-            </div>
+            <ezp-printing
+                clientid="your-client-id"
+                redirecturi="https://your-site.com/"
+                trigger="button"
+                fileurl="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                filename="dummypdf"
+                filetype="pdf"
+            >
+            </ezp-printing>
         </section>
     </body>
 </html>
