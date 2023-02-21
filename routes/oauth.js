@@ -2,7 +2,7 @@ const CONFIG = {
     url: 'https://account.ezeep.com/oauth/access_token',
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'https://wiseprint.cloud/callback',
+    redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
     code: null,
 }
 
