@@ -25,7 +25,7 @@ export const getUserInfo = async (url, access_token) => {
             },
         }).then((res) => res.json())
     } catch (e) {
-        logger.info('error', e)
+        console.log('error', e)
     }
 }
 
