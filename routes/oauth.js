@@ -16,25 +16,26 @@ let TOKEN = null
 export const oAuthCallback = (req, res) => {
     console.log('query', req.query, req.query.code)
     updateConfigCode(req.query.code)
+
     const token = getAccessToken()
     updateTOKEN(token)
-    res.redirect('/')
+    res.end('Success')
     // const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
 }
 
-export const getUserInfo = async (url, access_token) => {
-    try {
-        return await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-                Authorization: `Bearer ${access_token}`,
-            },
-        }).then((res) => res.json())
-    } catch (e) {
-        console.log('error', e)
-    }
-}
+// export const getUserInfo = async (url, access_token) => {
+//     try {
+//         return await fetch(url, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+//                 Authorization: `Bearer ${access_token}`,
+//             },
+//         }).then((res) => res.json())
+//     } catch (e) {
+//         console.log('error', e)
+//     }
+// }
 
 const getAccessToken = async () => {
     try {
@@ -54,11 +55,16 @@ const getAccessToken = async () => {
 
         const response = await fetch(CONFIG.url, option)
         console.log('Response:', response)
+        console.log('Response1:', response.body)
+        console.log('Response2:', response.headers)
+        console.log('Response3:', response.status)
+        console.log('Response4:', response.statusText)
+        console.log('Response5:', response.ok)
+        console.log('Response6:', response.type)
+        console.log('Response7:', response.formData())
 
-        const text = await response.text()
-        console.log('Response:', text)
-
-        // console.log('Success to get token', data)
+        const data = await response.json()
+        console.log('Success to get token', data)
 
         // return data
     } catch (e) {
