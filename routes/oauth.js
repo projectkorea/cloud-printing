@@ -12,6 +12,7 @@ const CONFIG = {
 const TOKEN = null
 
 export const oAuthCallback = async (req, res) => {
+    console.log('query', req.query, req.query.code)
     updateConfigCode(req.query.code)
     const token = await getAccessToken(CONFIG)
     updateTOKEN(token)
