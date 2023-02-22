@@ -49,7 +49,7 @@ const getAccessToken = async (options) => {
                 code: options.code,
             }),
         }).then((res) => {
-            console.log('Success to get token', res, token)
+            console.log('Success to get token', res, res.json())
             res.json()
         })
     } catch (e) {
