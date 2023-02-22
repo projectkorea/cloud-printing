@@ -20,22 +20,7 @@ export const oAuthCallback = (req, res) => {
     const token = getAccessToken()
     updateTOKEN(token)
     res.end('Success')
-    // const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
 }
-
-// export const getUserInfo = async (url, access_token) => {
-//     try {
-//         return await fetch(url, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-//                 Authorization: `Bearer ${access_token}`,
-//             },
-//         }).then((res) => res.json())
-//     } catch (e) {
-//         console.log('error', e)
-//     }
-// }
 
 const getAccessToken = async () => {
     try {
