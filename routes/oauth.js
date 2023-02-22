@@ -51,16 +51,13 @@ const getAccessToken = async () => {
                 redirect_uri: CONFIG.redirectUri,
             }),
         }
-        console.log('Auth', auth)
-        console.log('Option', option)
 
         const response = await fetch(CONFIG.url, option)
-        console.log('headers', response.headers)
+        console.log('Response:', response, typeof response)
 
-        const data = await response.json()
-        console.log('Success to get token', data)
+        // console.log('Success to get token', data)
 
-        return data
+        // return data
     } catch (e) {
         console.log('error', e)
     }
