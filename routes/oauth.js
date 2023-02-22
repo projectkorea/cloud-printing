@@ -9,10 +9,13 @@ const CONFIG = {
     code: null,
 }
 
+const TOKEN = null
+
 export const oAuthCallback = async (req, res) => {
     updateConfigCode(req.query.code)
     const token = await getAccessToken(CONFIG)
-    console.log('Success to get token', token)
+    updateTOKEN(token)
+    res.redirect('/')
     // const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
 }
 
@@ -44,7 +47,10 @@ const getAccessToken = async (options) => {
                 redirect_uri: options.redirectUri,
                 code: options.code,
             }),
-        }).then((res) => res.json())
+        }).then((res) => {
+            console.log('Success to get token', res.json())
+            res.json()
+        })
     } catch (e) {
         console.log('error', e)
     }
@@ -52,4 +58,8 @@ const getAccessToken = async (options) => {
 
 function updateConfigCode(code) {
     CONFIG.code = code
+}
+
+function updateTOKEN(token) {
+    TOKEN = token
 }
