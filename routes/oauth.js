@@ -43,6 +43,7 @@ const getAccessToken = async () => {
         const option = {
             method: 'POST',
             headers: {
+                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
                 Authorization: `Basic ${auth}`,
             },
             body: qs.stringify({
@@ -53,15 +54,9 @@ const getAccessToken = async () => {
             }),
         }
 
+        console.log('CONFIG.url', CONFIG.url)
         const response = await fetch(CONFIG.url, option)
         console.log('Response:', response)
-        console.log('Response1:', response.body)
-        console.log('Response2:', response.headers)
-        console.log('Response3:', response.status)
-        console.log('Response4:', response.statusText)
-        console.log('Response5:', response.ok)
-        console.log('Response6:', response.type)
-        console.log('Response7:', response.formData())
 
         const data = await response.json()
         console.log('Success to get token', data)
