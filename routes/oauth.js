@@ -13,10 +13,10 @@ const CONFIG = {
 
 let TOKEN = null
 
-export const oAuthCallback = async (req, res) => {
+export const oAuthCallback = (req, res) => {
     console.log('query', req.query, req.query.code)
     updateConfigCode(req.query.code)
-    const token = await getAccessToken()
+    const token = getAccessToken()
     updateTOKEN(token)
     res.redirect('/')
     // const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
@@ -39,8 +39,7 @@ export const getUserInfo = async (url, access_token) => {
 const getAccessToken = async () => {
     try {
         const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
-        console.log('Auth', auth)
-        const response = await fetch(CONFIG.url, {
+        const option = {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${auth}`,
@@ -51,11 +50,16 @@ const getAccessToken = async () => {
                 code: CONFIG.code,
                 redirect_uri: CONFIG.redirectUri,
             }),
-        })
+        }
+        console.log('Auth', auth)
+        console.log('Option', option)
+
+        const response = await fetch(CONFIG.url, option)
         console.log('headers', response.headers)
-        console.log('Here is response', response)
+
         const data = await response.json()
         console.log('Success to get token', data)
+
         return data
     } catch (e) {
         console.log('error', e)
