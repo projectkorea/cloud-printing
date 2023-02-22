@@ -1,5 +1,7 @@
 import qs from 'qs'
 import fetch from 'node-fetch'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const CONFIG = {
     url: 'https://account.ezeep.com/oauth/access_token',
