@@ -43,7 +43,7 @@ const getAccessToken = async () => {
         const option = {
             method: 'POST',
             headers: {
-                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+                'Content-type': 'application/x-www-from-urlencoded',
                 Authorization: `Basic ${auth}`,
             },
             body: qs.stringify({
