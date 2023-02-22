@@ -9,12 +9,12 @@ const CONFIG = {
     code: null,
 }
 
-const TOKEN = null
+let TOKEN = null
 
 export const oAuthCallback = async (req, res) => {
     console.log('query', req.query, req.query.code)
     updateConfigCode(req.query.code)
-    const token = await getAccessToken(CONFIG)
+    const token = await getAccessToken()
     updateTOKEN(token)
     res.redirect('/')
     // const userInfo = await getUserInfo(CONFIG.userInfoUrl, token.access_token)
@@ -34,10 +34,11 @@ export const getUserInfo = async (url, access_token) => {
     }
 }
 
-const getAccessToken = async (options) => {
+const getAccessToken = async () => {
     try {
-        const auth = Buffer.from(`${options.clientID}:${options.clientSecret}`).toString('base64')
-        const response = await fetch(options.url, {
+        const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
+        console.log('Auth', auth)
+        const response = await fetch(CONFIG.url, {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${auth}`,
@@ -45,10 +46,11 @@ const getAccessToken = async (options) => {
             body: qs.stringify({
                 grant_type: 'authorization_code',
                 scope: 'printing',
-                redirect_uri: options.redirectUri,
-                code: options.code,
+                code: CONFIG.code,
+                redirect_uri: CONFIG.redirectUri,
             }),
         })
+        console.log('headers', response.headers)
         console.log('Here is response', response)
         const data = await response.json()
         console.log('Success to get token', data)
