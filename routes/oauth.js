@@ -36,7 +36,7 @@ export const getUserInfo = async (url, access_token) => {
 const getAccessToken = async (options) => {
     try {
         const auth = Buffer.from(`${options.clientID}:${options.clientSecret}`).toString('base64')
-        return await fetch(options.url, {
+        const result = await fetch(options.url, {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${auth}`,
@@ -48,7 +48,7 @@ const getAccessToken = async (options) => {
                 code: options.code,
             }),
         }).then((res) => {
-            console.log('Success to get token', res.json())
+            console.log('Success to get token', res, res.json())
             res.json()
         })
     } catch (e) {
