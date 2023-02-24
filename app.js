@@ -9,8 +9,6 @@ app.use(morgan('dev'))
 
 app.use('/oauth/ezeep', oAuthCallback)
 
-fetch('https://naver.com', { method: 'POST' }).then((res) => res.json())
-
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })
 })
