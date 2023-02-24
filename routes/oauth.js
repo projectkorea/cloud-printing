@@ -1,6 +1,6 @@
 import qs from 'qs'
 import fetch from 'node-fetch'
-import dotenv from 'dotenv'
+import dotenv, { config } from 'dotenv'
 dotenv.config()
 
 const CONFIG = {
@@ -15,13 +15,14 @@ let TOKEN = null
 
 export const oAuthCallback = async (req, res) => {
     updateConfigCode(req.query.code)
-    // res.end()
-    // const token = await getAccessToken()
-    // updateTOKEN(token)
+    const token = await getAccessToken()
+    updateTOKEN(token)
+    res.send(TOKEN)
 }
 
 const getAccessToken = async () => {
     try {
+        console.log(CONFIG.code)
         const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
         const option = {
             method: 'POST',
