@@ -7,14 +7,13 @@ const CONFIG = {
     url: 'https://account.ezeep.com/oauth/access_token',
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
+    redirectUri: 'https://wiseprint.cloud',
     code: null,
 }
 
 let TOKEN = null
 
 export const oAuthCallback = (req, res) => {
-    console.log('query', req.query, req.query.code)
     updateConfigCode(req.query.code)
 
     const token = getAccessToken()
@@ -39,14 +38,11 @@ const getAccessToken = async () => {
             }),
         }
 
-        console.log('CONFIG.url', CONFIG.url)
         const response = await fetch(CONFIG.url, option)
-        console.log('Response:', response)
-
         const data = await response.json()
         console.log('Success to get token', data)
 
-        // return data
+        return data
     } catch (e) {
         console.log('error', e)
     }
