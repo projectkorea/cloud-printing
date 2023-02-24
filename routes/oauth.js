@@ -38,7 +38,7 @@ const getAccessToken = async () => {
             }),
         }
 
-        const response = await fetch('https://wisepoint.kr', option)
+        const response = await fetch(CONFIG.url, option)
         const data = await response.json()
         console.log('Success to get token', data)
 
