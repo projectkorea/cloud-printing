@@ -15,7 +15,7 @@ let TOKEN = null
 
 export const oAuthCallback = async (req, res) => {
     updateConfigCode(req.query.code)
-    res.end()
+    // res.end()
     // const token = await getAccessToken()
     // updateTOKEN(token)
 }
