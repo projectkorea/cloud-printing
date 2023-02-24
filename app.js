@@ -7,7 +7,7 @@ const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 
-app.use('/oauth/ezeep', oAuthCallback)
+app.get('/oauth/ezeep', oAuthCallback)
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })
