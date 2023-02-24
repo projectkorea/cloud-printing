@@ -9,11 +9,7 @@ app.use(morgan('dev'))
 
 app.use('/oauth/ezeep', oAuthCallback)
 
-app.get('/token', async (req, res) => {
-    const response = await fetch('https://naver.com', { method: 'POST' })
-    console.log(response)
-    res.end()
-})
+fetch('https://naver.com', { method: 'POST' }).then((res) => res.json())
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })
