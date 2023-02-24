@@ -17,7 +17,7 @@ export const oAuthCallback = async (req, res) => {
     updateConfigCode(req.query.code)
     const token = await getAccessToken()
     updateTOKEN(token)
-    res.send(TOKEN)
+    res.redirect('/')
 }
 
 const getAccessToken = async () => {
