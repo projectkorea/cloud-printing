@@ -53,10 +53,10 @@ const getKakaoAccessToken = async () => {
             }),
         }
         const response = await fetch(KAKAO.url, option)
-        // const data = await response.json()
+        const data = await response.json()
         console.log('Success to get response', response)
-        // console.log('Success to get token', data)
-        // return data
+        console.log('Success to get token', data)
+        return data
     } catch (e) {
         console.log(e)
     }
@@ -80,10 +80,10 @@ const getAccessToken = async () => {
     console.log('✅ fetch called')
     const response = await fetch(CONFIG.url, option)
     console.log('Response', response)
-    const data = await response.json()
-    console.log('Success to get token', data)
+    // const data = await response.json()
+    // console.log('Success to get token', data)
 
-    return data
+    // return data
 }
 
 function updateConfigCode(code) {
