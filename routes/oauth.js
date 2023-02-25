@@ -30,6 +30,7 @@ export const callback = (req, res) => {
 }
 
 export const oAuthCallback = async (req, res) => {
+    console.log('✅ oAuthCallback called')
     updateConfigCode(req.query.code)
     const token = await getAccessToken()
     updateTOKEN(token)
@@ -77,7 +78,7 @@ const getAccessToken = async () => {
                 redirect_uri: CONFIG.redirectUri,
             }),
         }
-
+        console.log('✅ fetch called')
         const response = await fetch(CONFIG.url, option)
         const data = await response.json()
         console.log('Success to get token', data)
