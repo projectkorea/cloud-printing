@@ -55,8 +55,8 @@ const getKakaoAccessToken = async () => {
         const response = await fetch(KAKAO.url, option)
         // const data = await response.json()
         console.log('Success to get response', response)
-        console.log('Success to get token', data)
-        return data
+        // console.log('Success to get token', data)
+        // return data
     } catch (e) {
         console.log(e)
     }
