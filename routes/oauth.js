@@ -15,7 +15,7 @@ const KAKAO = {
     url: 'https://kauth.kakao.com/oauth/token',
     clientID: 'ba0978cda441cd7c19ec044f0be74fbe',
     CLIENT_SECRET: 'QmNE3H1NQhhhbuxh3rATrNKJCAUvTj2l',
-    redirect_uri: 'https://wiseprint.cloud/oauth/kakao',
+    redirect_uri: 'https://wiseprint.cloud/callback',
     code: null,
 }
 
