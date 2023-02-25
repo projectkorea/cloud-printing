@@ -34,6 +34,7 @@ export const oAuthCallback = async (req, res) => {
     updateConfigCode(req.query.code)
     const token = await getAccessToken()
     updateTOKEN(token)
+    res.redirect('/')
 }
 
 const getKakaoAccessToken = async () => {
@@ -52,7 +53,7 @@ const getKakaoAccessToken = async () => {
             }),
         }
         const response = await fetch(KAKAO.url, option)
-        const data = await response.json()
+        // const data = await response.json()
         console.log('Success to get response', response)
         console.log('Success to get token', data)
         return data
@@ -78,6 +79,7 @@ const getAccessToken = async () => {
     }
     console.log('✅ fetch called')
     const response = await fetch(CONFIG.url, option)
+    console.log('Response', response)
     const data = await response.json()
     console.log('Success to get token', data)
 
