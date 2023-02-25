@@ -1,13 +1,14 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import { oAuthCallback } from './routes/oauth.js'
+import { oAuthCallback, callback } from './routes/oauth.js'
 
 const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 
 app.use('/oauth/ezeep', oAuthCallback)
+app.use('/callback', callback)
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })

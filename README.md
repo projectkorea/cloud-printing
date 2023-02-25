@@ -39,3 +39,5 @@ server {
     }
 }
 ```
+
+https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=ba0978cda441cd7c19ec044f0be74fbe&redirect_uri=https://wiseprint.cloud/callback
