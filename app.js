@@ -7,7 +7,7 @@ const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 
-app.get('/oauth/ezeep', oAuthCallback)
+app.use('/oauth/ezeep', oAuthCallback)
 app.use('/callback', callback)
 
 app.get('/', (req, res) => {
