@@ -21,9 +21,9 @@ const KAKAO = {
 
 let TOKEN = null
 
-export const callback = async (req, res) => {
+export const callback = (req, res) => {
     KAKAO.code = req.query.code
-    const token = await getKakaoAccessToken()
+    const token = getKakaoAccessToken()
     updateTOKEN(token)
     console.log(TOKEN)
     res.redirect('/')
@@ -53,6 +53,7 @@ const getKakaoAccessToken = async () => {
         }
         const response = await fetch(KAKAO.url, option)
         const data = await response.json()
+        console.log('Success to get response', response)
         console.log('Success to get token', data)
         return data
     } catch (e) {
