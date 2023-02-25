@@ -34,7 +34,6 @@ export const oAuthCallback = async (req, res) => {
     updateConfigCode(req.query.code)
     const token = await getAccessToken()
     updateTOKEN(token)
-    res.redirect('/')
 }
 
 const getKakaoAccessToken = async () => {
@@ -62,31 +61,27 @@ const getKakaoAccessToken = async () => {
     }
 }
 const getAccessToken = async () => {
-    try {
-        console.log(CONFIG.code)
-        const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
-        const option = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded',
-                Authorization: `Basic ${auth}`,
-            },
-            body: qs.stringify({
-                grant_type: 'authorization_code',
-                scope: 'printing',
-                code: CONFIG.code,
-                redirect_uri: CONFIG.redirectUri,
-            }),
-        }
-        console.log('✅ fetch called')
-        const response = await fetch(CONFIG.url, option)
-        const data = await response.json()
-        console.log('Success to get token', data)
-
-        return data
-    } catch (e) {
-        console.log('error', e)
+    console.log(CONFIG.code)
+    const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
+    const option = {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${auth}`,
+        },
+        body: qs.stringify({
+            grant_type: 'authorization_code',
+            scope: 'printing',
+            code: CONFIG.code,
+            redirect_uri: CONFIG.redirectUri,
+        }),
     }
+    console.log('✅ fetch called')
+    const response = await fetch(CONFIG.url, option)
+    const data = await response.json()
+    console.log('Success to get token', data)
+
+    return data
 }
 
 function updateConfigCode(code) {
