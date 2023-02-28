@@ -35,7 +35,7 @@ const getAccessToken = async () => {
         const option = {
             method: 'POST',
             headers: {
-                'Content-type': 'multipart/form-data',
+                'Content-type': 'multipart/x-www-form-urlencoded',
                 Authorization: `Basic ${auth}`,
             },
             body: qs.stringify({
@@ -47,8 +47,8 @@ const getAccessToken = async () => {
         }
         const response = await fetch(CONFIG.url, option)
         console.log('Response', response)
-        // const data = await response.json()
-        // console.log('Success to get token', data)
+        const data = await response.json()
+        console.log('Success to get token', data)
 
         // return data
     } catch (e) {
