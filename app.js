@@ -1,14 +1,15 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import { oAuthCallback, callback } from './routes/oauth.js'
+import { ezeepOAuthCallback } from './routes/ezeep.js'
+import { kakaoOAuthCallback } from './routes/kakao.js'
 
 const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 
-app.use('/oauth/ezeep', oAuthCallback)
-app.use('/callback', callback)
+app.use('/oauth/ezeep', ezeepOAuthCallback)
+app.use('/oauth/kakao', kakaoOAuthCallback)
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })
