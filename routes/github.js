@@ -28,10 +28,8 @@ const getGithubAccessToken = async (code) => {
                 'Content-type': 'application/json',
             },
             body: qs.stringify({
-                grant_type: 'authorization_code',
                 client_id: CONFIG.clientID,
                 client_secret: CONFIG.clientSECRET,
-                redirect_uri: CONFIG.redirectURI,
                 code
             }),
         }
