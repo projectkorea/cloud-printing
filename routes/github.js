@@ -25,7 +25,7 @@ const getGithubAccessToken = async (code) => {
         const option = {
             method: 'POST',
             headers: {
-                'Content-type': 'application/x-www-form-urlencoded',
+                'Content-type': 'application/json',
             },
             body: qs.stringify({
                 grant_type: 'authorization_code',
