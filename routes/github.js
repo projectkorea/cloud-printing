@@ -34,12 +34,12 @@ const getGithubAccessToken = async (code) => {
                 code
             }),
         }
-        console.log(option)
         const response = await fetch(CONFIG.url, option)
-        console.log(response)
         const data = await response.json()
+        
         console.log('Success to get response', response)
         console.log('Success to get token', data)
+        
         return data
     } catch (e) {
         console.log(e)
