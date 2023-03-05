@@ -14,6 +14,7 @@ const CONFIG = {
 
 export const githubOAuthCallback = async (req, res) => {
     const code = req.query.code
+    console.log("code", code)
     const token = await getGithubAccessToken(code)
     updateTOKEN(token)
     console.log(TOKEN)
@@ -33,6 +34,7 @@ const getGithubAccessToken = async (code) => {
                 code
             }),
         }
+        console.log("option", option)
         const response = await fetch(CONFIG.url, option)
         console.log('Success to get response', response)
         
