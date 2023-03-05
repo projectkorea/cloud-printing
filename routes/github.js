@@ -5,7 +5,7 @@ dotenv.config()
 
 let TOKEN = null
 
-const GITHUB = {
+const CONFIG = {
     url: 'https://github.com/login/oauth/access_token',
     clientID: process.env.CLIENT_ID_GITHUB,
     clientSECRET: process.env.CLIENT_SECRET_GITHUB,
@@ -29,9 +29,9 @@ const getGithubAccessToken = async (code) => {
             },
             body: qs.stringify({
                 grant_type: 'authorization_code',
-                client_id: GITHUB.clientID,
-                client_secret: GITHUB.clientSECRET,
-                redirect_uri: GITHUB.redirectURI,
+                client_id: CONFIG.clientID,
+                client_secret: CONFIG.clientSECRET,
+                redirect_uri: CONFIG.redirectURI,
                 code
             }),
         }
