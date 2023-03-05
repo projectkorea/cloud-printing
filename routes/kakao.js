@@ -1,7 +1,12 @@
+import qs from 'qs'
+import fetch from 'node-fetch'
+import dotenv from 'dotenv'
+dotenv.config()
+
 const KAKAO = {
     url: 'https://kauth.kakao.com/oauth/token',
-    clientID: 'ba0978cda441cd7c19ec044f0be74fbe',
-    CLIENT_SECRET: 'QmNE3H1NQhhhbuxh3rATrNKJCAUvTj2l',
+    clientID: '',
+    CLIENT_SECRET: '',
     redirect_uri: 'https://wiseprint.cloud/callback',
     code: null,
 }
@@ -37,4 +42,8 @@ const getKakaoAccessToken = async () => {
     } catch (e) {
         console.log(e)
     }
+}
+
+function updateTOKEN(token) {
+    TOKEN = token
 }
