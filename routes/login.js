@@ -4,7 +4,7 @@ dotenv.config()
 export const githubLoginPage = (req, res) => {
     const baseUrl = "https://github.com/login/oauth/authorize";
     const config = {
-        client_id: process.env.GITHUB_CLIENT,
+        client_id: process.env.CLIENT_ID_GITHUB,
         scope: "read:user user:email",
         allow_signup: true,
     };
