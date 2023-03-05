@@ -25,7 +25,7 @@ const getGithubAccessToken = async (code) => {
         const option = {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json',
+                accept: 'application/json',
             },
             body: qs.stringify({
                 client_id: CONFIG.clientID,
