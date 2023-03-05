@@ -12,9 +12,9 @@ const CONFIG = {
     redirectURI: 'https://wiseprint.cloud/oauth/github',
 }
 
-export const githubOAuthCallback = (req, res) => {
+export const githubOAuthCallback = async (req, res) => {
     const code = req.query.code
-    const token = getGithubAccessToken(code)
+    const token = await getGithubAccessToken(code)
     updateTOKEN(token)
     console.log(TOKEN)
     res.send(token)
@@ -25,8 +25,7 @@ const getGithubAccessToken = async (code) => {
         const option = {
             method: 'POST',
             headers: {
-                accept: 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json',
             },
             body: qs.stringify({
                 client_id: CONFIG.clientID,
@@ -35,11 +34,11 @@ const getGithubAccessToken = async (code) => {
             }),
         }
         const response = await fetch(CONFIG.url, option)
-        const data = await response.json()
-        
         console.log('Success to get response', response)
-        console.log('Success to get token', data)
         
+        const data = await response.json()
+        console.log('Success to get token', data)
+
         return data
     } catch (e) {
         console.log(e)
