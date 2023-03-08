@@ -15,7 +15,7 @@ const KAKAO = {
 export const kakaoOAuthCallback = (req, res) => {
     const token = getKakaoAccessToken(req.query.code)
     updateTOKEN(token)
-    res.send(TOKEN)
+    res.send()
 }
 
 const getKakaoAccessToken = async (code) => {
