@@ -5,8 +5,8 @@ dotenv.config()
 
 const KAKAO = {
     url: 'https://kauth.kakao.com/oauth/token',
-    CLIENT_ID: process.env.CLIENT_ID_GITHUB,
-    CLIENT_SECRET: process.env.CLIENT_SECRET_GITHUB,
+    CLIENT_ID: process.env.CLIENT_ID_KAKAO,
+    CLIENT_SECRET: process.env.CLIENT_SECRET_KAKAO,
     redirect_uri: 'https://wiseprint.cloud/callback',
 }
 
