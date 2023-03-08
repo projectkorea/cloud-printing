@@ -3,6 +3,8 @@ import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
 
+let TOKEN = null
+
 const KAKAO = {
     url: 'https://kauth.kakao.com/oauth/token',
     CLIENT_ID: process.env.CLIENT_ID_KAKAO,
@@ -13,7 +15,6 @@ const KAKAO = {
 export const kakaoOAuthCallback = (req, res) => {
     const token = getKakaoAccessToken(req.query.code)
     updateTOKEN(token)
-    console.log(TOKEN)
     res.redirect('/')
 }
 
