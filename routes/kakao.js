@@ -12,8 +12,8 @@ const KAKAO = {
     redirect_uri: 'https://wiseprint.cloud/oauth/kakao',
 }
 
-export const kakaoOAuthCallback = (req, res) => {
-    const token = getKakaoAccessToken(req.query.code)
+export const kakaoOAuthCallback = async (req, res) => {
+    const token = await getKakaoAccessToken(req.query.code)
     res.send(token)
 }
 
