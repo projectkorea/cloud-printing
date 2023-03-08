@@ -12,6 +12,7 @@ app.use(morgan('dev'))
 
 app.use('/login/kakao', kakaoLoginPage)
 app.use('/login/github', githubLoginPage)
+
 app.use('/oauth/ezeep', ezeepOAuthCallback)
 app.use('/oauth/kakao', kakaoOAuthCallback)
 app.use('/oauth/github', githubOAuthCallback)
