@@ -5,21 +5,19 @@ dotenv.config()
 
 const KAKAO = {
     url: 'https://kauth.kakao.com/oauth/token',
-    clientID: '',
-    CLIENT_SECRET: '',
+    CLIENT_ID: process.env.CLIENT_ID_GITHUB,
+    CLIENT_SECRET: process.env.CLIENT_SECRET_GITHUB,
     redirect_uri: 'https://wiseprint.cloud/callback',
-    code: null,
 }
 
 export const kakaoOAuthCallback = (req, res) => {
-    KAKAO.code = req.query.code
-    const token = getKakaoAccessToken()
+    const token = getKakaoAccessToken(req.query.code)
     updateTOKEN(token)
     console.log(TOKEN)
     res.redirect('/')
 }
 
-const getKakaoAccessToken = async () => {
+const getKakaoAccessToken = async (code) => {
     try {
         const option = {
             method: 'POST',
@@ -28,14 +26,15 @@ const getKakaoAccessToken = async () => {
             },
             body: qs.stringify({
                 grant_type: 'authorization_code',
-                client_id: KAKAO.clientID,
+                client_id: KAKAO.CLIENT_ID,
                 client_secret: KAKAO.CLIENT_SECRET,
                 redirect_uri: KAKAO.redirect_uri,
-                code: KAKAO.code,
+                code,
             }),
         }
         const response = await fetch(KAKAO.url, option)
         const data = await response.json()
+
         console.log('Success to get response', response)
         console.log('Success to get token', data)
         return data

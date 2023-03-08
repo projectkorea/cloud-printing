@@ -5,8 +5,8 @@ dotenv.config()
 
 const CONFIG = {
     url: 'https://account.ezeep.com/oauth/access_token',
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientID: process.env.CLIENT_ID_EZEEP,
+    clientSecret: process.env.CLIENT_SECRET_EZEEP,
     redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
 }
 

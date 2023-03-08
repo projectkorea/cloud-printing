@@ -9,7 +9,7 @@ const CONFIG = {
     url: 'https://github.com/login/oauth/access_token',
     clientID: process.env.CLIENT_ID_GITHUB,
     clientSECRET: process.env.CLIENT_SECRET_GITHUB,
-    redirectURI: 'http://wiseprint.cloud/oauth/github',
+    redirectURI: 'http://wiseprint.cloud',
 }
 
 export const githubOAuthCallback = async (req, res) => {
