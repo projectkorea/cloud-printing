@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const kakaoLoginPage = (req, res) => {
-  const baseUrl = "https://kauth.kakao.com";
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
       client_id: process.env.CLIENT_ID_GITHUB,
       redirect_uri: 'https://wiseprint.cloud/oauth/kakao',
