@@ -3,8 +3,6 @@ import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
 
-let TOKEN = null
-
 const KAKAO = {
     url: 'https://kauth.kakao.com/oauth/token',
     CLIENT_ID: process.env.CLIENT_ID_KAKAO,
@@ -35,14 +33,9 @@ const getKakaoAccessToken = async (code) => {
         const response = await fetch(KAKAO.url, option)
         const data = await response.json()
 
-        console.log('Success to get response', response)
         console.log('Success to get token', data)
         return data
     } catch (e) {
         console.log(e)
     }
-}
-
-function updateTOKEN(token) {
-    TOKEN = token
 }

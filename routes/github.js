@@ -3,21 +3,15 @@ import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
 
-let TOKEN = null
-
 const CONFIG = {
     url: 'https://github.com/login/oauth/access_token',
     clientID: process.env.CLIENT_ID_GITHUB,
     clientSECRET: process.env.CLIENT_SECRET_GITHUB,
-    redirectURI: 'http://wiseprint.cloud',
+    redirectURI: 'https://wiseprint.cloud/oauth/github',
 }
 
 export const githubOAuthCallback = async (req, res) => {
-    const code = req.query.code
-    console.log("code", code)
-    const token = await getGithubAccessToken(code)
-    updateTOKEN(token)
-    console.log(TOKEN)
+    const token = await getGithubAccessToken(req.query.code)
     res.send(token)
 }
 
@@ -31,13 +25,13 @@ const getGithubAccessToken = async (code) => {
             body: qs.stringify({
                 client_id: CONFIG.clientID,
                 client_secret: CONFIG.clientSECRET,
-                code
+                code,
             }),
         }
-        console.log("option", option)
+        console.log('option', option)
         const response = await fetch(CONFIG.url, option)
         console.log('Success to get response', response)
-        
+
         const data = await response.json()
         console.log('Success to get token', data)
 
@@ -45,8 +39,4 @@ const getGithubAccessToken = async (code) => {
     } catch (e) {
         console.log(e)
     }
-}
-
-const updateTOKEN = (token) => {
-    TOKEN = token
 }
