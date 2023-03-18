@@ -17,7 +17,7 @@ export const ezeepOAuthCallback = async (req, res) => {
     res.send(token)
 }
 
-const getAccessToken = async () => {
+const getAccessToken = async (code) => {
     try {
         const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
         const option = {
@@ -29,7 +29,7 @@ const getAccessToken = async () => {
             body: qs.stringify({
                 grant_type: 'authorization_code',
                 scope: 'printing',
-                code: authorizationCode,
+                code,
                 redirect_uri: CONFIG.redirectUri,
             }),
         }
