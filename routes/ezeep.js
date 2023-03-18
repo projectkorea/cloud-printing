@@ -35,7 +35,7 @@ const getAccessToken = async (code) => {
         }
         const response = await fetch(CONFIG.url, option)
         console.log('Response', response)
-        const data = await response.json()
+        const data = await response.text()
         console.log('Success to get token', data)
 
         // return data
