@@ -13,12 +13,8 @@ const CONFIG = {
 let TOKEN = null
 
 export const ezeepOAuthCallback = async (req, res) => {
-    console.log('✅ oAuthCallback called')
-    const authorizationCode = req.query.code
-    updateConfigCode()
-    const token = await getAccessToken(authorizationCode)
-    updateTOKEN(token)
-    res.redirect('/')
+    const token = await getAccessToken(req.query.code)
+    res.send(token)
 }
 
 const getAccessToken = async () => {
@@ -46,8 +42,4 @@ const getAccessToken = async () => {
     } catch (e) {
         console.log(e)
     }
-}
-
-function updateTOKEN(token) {
-    TOKEN = token
 }
