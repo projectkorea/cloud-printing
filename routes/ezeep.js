@@ -12,7 +12,7 @@ const CONFIG = {
 }
 
 export const ezeepOAuthCallback = async (req, res) => {
-    const {access_token, refresh_token} = await getAccessToken(req.query.code)
+    const { access_token, refresh_token } = await getAccessToken(req.query.code)
     req.session.accessToken = access_token
     res.redirect('/')
 }
@@ -53,7 +53,7 @@ export const getConfiguration = async (req, res) => {
         })
 
         const data = await response.json()
-        res.send(data.)
+        res.send(data)
     } catch (error) {
         console.error('Error fetching configuration:', error)
     }
