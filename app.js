@@ -25,3 +25,26 @@ app.get('/', (req, res) => {
 app.listen(3001, () => {
     console.log(`🌈Server started on port 3001`)
 })
+
+const checkCORS = async (url, method) => {
+    try {
+        const response = await fetch(url, {
+            method, // 또는 다른 HTTP 메소드를 사용할 수 있습니다.
+        })
+
+        const headers = response.headers
+        console.log(url)
+        console.log('Access-Control-Allow-Origin:', headers.get('Access-Control-Allow-Origin'))
+        console.log('Access-Control-Allow-Methods:', headers.get('Access-Control-Allow-Methods'))
+        console.log('Access-Control-Allow-Headers:', headers.get('Access-Control-Allow-Headers'))
+        console.log('Access-Control-Allow-Credentials:', headers.get('Access-Control-Allow-Credentials'))
+    } catch (error) {
+        console.error('Error while checking CORS:', error)
+    }
+}
+
+checkCORS('https://wiseprint.cloud', 'GET')
+checkCORS('http://wiseprint.cloud', 'GET')
+
+checkCORS('https://wiseprint.cloud', 'POST')
+checkCORS('http://wiseprint.cloud', 'POST')
