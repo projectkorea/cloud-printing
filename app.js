@@ -45,13 +45,13 @@ const checkCORS = async (url, method) => {
 }
 
 console.log('1 시작')
-checkCORS('https://wiseprint.cloud', 'GET')
+await checkCORS('https://wiseprint.cloud', 'GET')
 
 console.log('2 시작')
-checkCORS('http://wiseprint.cloud', 'GET')
+await checkCORS('http://wiseprint.cloud', 'GET')
 
 console.log('3 시작')
-checkCORS('https://wiseprint.cloud', 'POST')
+await checkCORS('https://wiseprint.cloud', 'POST')
 
 console.log('4 시작')
-checkCORS('http://wiseprint.cloud', 'POST')
+await checkCORS('http://wiseprint.cloud', 'POST')
