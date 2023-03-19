@@ -8,7 +8,7 @@ const CONFIG = {
     clientID: process.env.CLIENT_ID_EZEEP,
     clientSecret: process.env.CLIENT_SECRET_EZEEP,
     redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
-    baseURL: 'https://printapi.ezeep.com/',
+    baseURL: 'https://printapi.ezeep.com',
 }
 
 export const ezeepOAuthCallback = async (req, res) => {
