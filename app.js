@@ -5,6 +5,7 @@ import { ezeepOAuthCallback } from './routes/ezeep.js'
 import { kakaoOAuthCallback } from './routes/kakao.js'
 import { githubOAuthCallback } from './routes/github.js'
 import { githubLoginPage, kakaoLoginPage, ezeepLoginPage } from './routes/login.js'
+import fetch from 'node-fetch'
 
 const app = express()
 app.use(cors())
