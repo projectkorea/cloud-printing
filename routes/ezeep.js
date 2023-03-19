@@ -10,8 +10,6 @@ const CONFIG = {
     redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
 }
 
-let TOKEN = null
-
 export const ezeepOAuthCallback = async (req, res) => {
     const token = await getAccessToken(req.query.code)
     res.send(token)
