@@ -20,16 +20,16 @@ const getAccessToken = async (code) => {
         const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
         const option = {
             method: 'POST',
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded',
-                Authorization: `Basic ${auth}`,
-            },
-            body: qs.stringify({
-                grant_type: 'authorization_code',
-                scope: 'printing',
-                code,
-                redirect_uri: CONFIG.redirectUri,
-            }),
+            // headers: {
+            //     'Content-type': 'multipart/x-www-form-urlencoded',
+            //     Authorization: `Basic ${auth}`,
+            // },
+            // body: qs.stringify({
+            //     grant_type: 'authorization_code',
+            //     scope: 'printing',
+            //     code,
+            //     redirect_uri: CONFIG.redirectUri,
+            // }),
         }
         const response = await fetch(CONFIG.url, option)
         console.log('Response', response)
