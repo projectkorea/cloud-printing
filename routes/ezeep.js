@@ -19,8 +19,6 @@ export const ezeepOAuthCallback = async (req, res) => {
 
 function temp(code) {
     const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
-    const url = 'https://account.ezeep.com/oauth/access_token/'
-
     const option = {
         method: 'POST',
         headers: {
@@ -35,7 +33,7 @@ function temp(code) {
         }),
     }
 
-    fetch(url, option)
+    fetch(CONFIG.url, option)
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => console.error('Error:', error))
@@ -62,7 +60,7 @@ const getAccessToken = async (code) => {
         const data = await response.text()
         console.log('Success to get token', data)
 
-        // return data
+        return data
     } catch (e) {
         console.log(e)
     }
