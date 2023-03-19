@@ -20,23 +20,22 @@ export const ezeepOAuthCallback = async (req, res) => {
 function temp(code) {
     const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
     const url = 'https://account.ezeep.com/oauth/access_token/'
-    const headers = {
-        Authorization: `Basic ${auth}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-    }
 
-    const data = {
-        grant_type: 'authorization_code',
-        scope: 'printing',
-        code,
-        redirect_uri: 'https://wiseprint.cloud/oauth/ezeep',
-    }
-
-    fetch(url, {
+    const option = {
         method: 'POST',
-        headers,
-        body: queryString.stringify(data), // 변경: 'querystring' 모듈 사용
-    })
+        headers: {
+            Authorization: `Basic ${auth}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: queryString.stringify({
+            grant_type: 'authorization_code',
+            scope: 'printing',
+            code,
+            redirect_uri: 'https://wiseprint.cloud/oauth/ezeep',
+        }),
+    }
+
+    fetch(url, option)
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => console.error('Error:', error))
