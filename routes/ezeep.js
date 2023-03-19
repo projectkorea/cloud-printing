@@ -27,11 +27,11 @@ function temp(code) {
             Authorization: `Basic ${auth}`,
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: queryString.stringify({
+        body: qs.stringify({
             grant_type: 'authorization_code',
             scope: 'printing',
             code,
-            redirect_uri: 'https://wiseprint.cloud/oauth/ezeep',
+            redirect_uri: CONFIG.redirectUri,
         }),
     }
 
