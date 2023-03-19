@@ -1,7 +1,6 @@
 import qs from 'qs'
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
-import queryString from 'query-string'
 dotenv.config()
 
 const CONFIG = {
@@ -9,34 +8,13 @@ const CONFIG = {
     clientID: process.env.CLIENT_ID_EZEEP,
     clientSecret: process.env.CLIENT_SECRET_EZEEP,
     redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
+    baseURL: 'https://printapi.ezeep.com/',
 }
 
 export const ezeepOAuthCallback = async (req, res) => {
-    // temp(req.query.code)
     const token = await getAccessToken(req.query.code)
-    res.send(token)
-}
-
-function temp(code) {
-    const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
-    const option = {
-        method: 'POST',
-        headers: {
-            Authorization: `Basic ${auth}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: qs.stringify({
-            grant_type: 'authorization_code',
-            scope: 'printing',
-            code,
-            redirect_uri: CONFIG.redirectUri,
-        }),
-    }
-
-    fetch(CONFIG.url, option)
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error('Error:', error))
+    req.session.accessToken = token
+    res.redirect('/')
 }
 
 const getAccessToken = async (code) => {
@@ -62,5 +40,21 @@ const getAccessToken = async (code) => {
         return data
     } catch (e) {
         console.log(e)
+    }
+}
+
+export const getConfiguration = async (req, res) => {
+    try {
+        const response = await fetch('https://printapi.ezeep.com/sfapi/GetConfiguration/', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${req.session.accessToken}`,
+            },
+        })
+
+        const data = await response.json()
+        res.send(data)
+    } catch (error) {
+        console.error('Error fetching configuration:', error)
     }
 }
