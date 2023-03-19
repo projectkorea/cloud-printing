@@ -34,7 +34,7 @@ const checkCORS = async (url, method) => {
         })
 
         const headers = response.headers
-        console.log(url)
+        console.log(url, method)
         console.log('Access-Control-Allow-Origin:', headers.get('Access-Control-Allow-Origin'))
         console.log('Access-Control-Allow-Methods:', headers.get('Access-Control-Allow-Methods'))
         console.log('Access-Control-Allow-Headers:', headers.get('Access-Control-Allow-Headers'))
@@ -44,8 +44,14 @@ const checkCORS = async (url, method) => {
     }
 }
 
+console.log('1 시작')
 checkCORS('https://wiseprint.cloud', 'GET')
+
+console.log('2 시작')
 checkCORS('http://wiseprint.cloud', 'GET')
 
+console.log('3 시작')
 checkCORS('https://wiseprint.cloud', 'POST')
+
+console.log('4 시작')
 checkCORS('http://wiseprint.cloud', 'POST')
