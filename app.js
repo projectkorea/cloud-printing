@@ -12,7 +12,7 @@ app.use(cors())
 app.use(morgan('dev'))
 
 app.use('/test', (req, res) => {
-    res.end()
+    res.status(200).send('POST request received')
 })
 
 app.use('/login/ezeep', ezeepLoginPage)
