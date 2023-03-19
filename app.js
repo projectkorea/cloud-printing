@@ -11,6 +11,10 @@ const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 
+app.use('/test', (req, res) => {
+    res.send('test', res)
+})
+
 app.use('/login/ezeep', ezeepLoginPage)
 app.use('/login/kakao', kakaoLoginPage)
 app.use('/login/github', githubLoginPage)
@@ -43,12 +47,6 @@ const checkCORS = async (url, method) => {
         console.error('Error while checking CORS:', error)
     }
 }
-
-console.log('1 시작')
-await checkCORS('https://wiseprint.cloud', 'GET')
-
-console.log('2 시작')
-await checkCORS('http://wiseprint.cloud', 'GET')
 
 console.log('3 시작')
 await checkCORS('https://wiseprint.cloud', 'POST')
