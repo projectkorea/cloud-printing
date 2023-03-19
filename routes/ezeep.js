@@ -12,9 +12,9 @@ const CONFIG = {
 }
 
 export const ezeepOAuthCallback = async (req, res) => {
-    temp(req.query.code)
-    // const token = await getAccessToken(req.query.code)
-    // res.send(token)
+    // temp(req.query.code)
+    const token = await getAccessToken(req.query.code)
+    res.send(token)
 }
 
 function temp(code) {
@@ -48,16 +48,15 @@ const getAccessToken = async (code) => {
                 'Content-type': 'application/x-www-form-urlencoded',
                 Authorization: `Basic ${auth}`,
             },
-            // body: qs.stringify({
-            //     grant_type: 'authorization_code',
-            //     scope: 'printing',
-            //     code,
-            //     redirect_uri: CONFIG.redirectUri,
-            // }),
+            body: qs.stringify({
+                grant_type: 'authorization_code',
+                scope: 'printing',
+                code,
+                redirect_uri: CONFIG.redirectUri,
+            }),
         }
         const response = await fetch(CONFIG.url, option)
-        console.log('Response', response)
-        const data = await response.text()
+        const data = await response.json()
         console.log('Success to get token', data)
 
         return data
