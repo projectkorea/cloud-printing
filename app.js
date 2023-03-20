@@ -24,11 +24,11 @@ app.use('/api/token', (req, res) => {
     const accessToken = req.session.accessToken
 
     if (!accessToken) {
-        res.json({})
+        res.json('fail')
         return
     }
 
-    res.json({ accessToken })
+    res.json('success')
 })
 
 app.use('/login/ezeep', ezeepLoginPage)
