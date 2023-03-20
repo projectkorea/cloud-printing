@@ -44,6 +44,11 @@ app.use('/ezeep/printer', getPrinter)
 app.use('/ezeep/printer-properties', getPrinterProperties)
 app.use('/ezeep/prepare', prepareFileUpload)
 
+app.get('/index.js', (req, res) => {
+    res.setHeader('Content-Type', 'text/javascript')
+    res.sendFile('index.js', { root: 'public' })
+})
+
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })
 })
