@@ -3,7 +3,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import session from 'express-session'
-import { ezeepOAuthCallback, getConfiguration } from './routes/ezeep.js'
+import { ezeepOAuthCallback, getConfiguration, getPrinter, getPrinterProperties, prepareFileUpload } from './routes/ezeep.js'
 import { kakaoOAuthCallback } from './routes/kakao.js'
 import { githubOAuthCallback } from './routes/github.js'
 import { githubLoginPage, kakaoLoginPage, ezeepLoginPage } from './routes/login.js'
@@ -20,6 +20,17 @@ app.use(
     })
 )
 
+app.use('/api/token', (req, res) => {
+    const accessToken = req.session.accessToken
+
+    if (!accessToken) {
+        res.json({})
+        return
+    }
+
+    res.json({ accessToken })
+})
+
 app.use('/login/ezeep', ezeepLoginPage)
 app.use('/login/kakao', kakaoLoginPage)
 app.use('/login/github', githubLoginPage)
@@ -29,6 +40,9 @@ app.use('/oauth/kakao', kakaoOAuthCallback)
 app.use('/oauth/github', githubOAuthCallback)
 
 app.use('/ezeep/configuration', getConfiguration)
+app.use('/ezeep/printer', getPrinter)
+app.use('/ezeep/printer-properties', getPrinterProperties)
+app.use('/ezeep/prepare', prepareFileUpload)
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public' })

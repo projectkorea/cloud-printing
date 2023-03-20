@@ -51,7 +51,51 @@ export const getConfiguration = async (req, res) => {
                 Authorization: `Bearer ${req.session.accessToken}`,
             },
         })
+        const data = await response.json()
+        res.send(data)
+    } catch (error) {
+        console.error('Error fetching configuration:', error)
+    }
+}
 
+export const getPrinter = async (req, res) => {
+    try {
+        const response = await fetch(`${CONFIG.baseURL}/sfapi/GetPrinter/`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${req.session.accessToken}`,
+            },
+        })
+        const data = await response.json()
+        res.send(data)
+    } catch (error) {
+        console.error('Error fetching configuration:', error)
+    }
+}
+
+export const getPrinterProperties = async (req, res) => {
+    try {
+        const response = await fetch(`${CONFIG.baseURL}/sfapi/GetPrinterProperties/`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${req.session.accessToken}`,
+            },
+        })
+        const data = await response.json()
+        res.send(data)
+    } catch (error) {
+        console.error('Error fetching configuration:', error)
+    }
+}
+
+export const prepareFileUpload = async (req, res) => {
+    try {
+        const response = await fetch(`${CONFIG.baseURL}/sfapi/PrepareUpload/`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${req.session.accessToken}`,
+            },
+        })
         const data = await response.json()
         res.send(data)
     } catch (error) {
