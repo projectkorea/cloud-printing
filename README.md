@@ -4,17 +4,17 @@
 
 ### nginx 기본 설정
 
--   `sudo nano /etc/nginx/sites-available/default`에서 설정 코드를 보다가 문득 궁금해졌다.
--   what is `try_files $uri $uri/ =404;`?
--   이에 chatGPT의 답변
+- `sudo nano /etc/nginx/sites-available/default`에서 설정 코드를 보다가 문득 궁금해졌다.
+- What is `try_files $uri $uri/ =404;`?
 
 ```
-When a request is made, Nginx will first try to serve the requested file. If it cannot find the file, it will try to serve the directory index file. If it still cannot find a file, it will return a 404 error.
+When a request is made, Nginx will first try to serve the requested file.
+If it cannot find the file, it will try to serve the directory index file.
+If it still cannot find a file, it will return a 404 error.
 ```
 
--   찾았다..
--   해당 부분을 지우고 nginx을 재시작하니 app.get('/oauth') 라우팅이 먹는다.
--   express가 요청을 받기 전에, nginx 단에서 404를 날리니 생기는 문제였다.
+- 해당 부분을 지우고 nginx을 재시작하니 app.get('/oauth') 라우팅이 먹는다.
+- express가 요청을 받기 전에, nginx 단에서 404를 날리니 생기는 문제였다.
 
 ```
 server {
@@ -23,8 +23,6 @@ server {
 
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
-
-    server_name _;
 
     location / {
         # Proxy all requests to the Node.js application
@@ -39,5 +37,3 @@ server {
     }
 }
 ```
-
-https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=ba0978cda441cd7c19ec044f0be74fbe&redirect_uri=https://wiseprint.cloud/callback
