@@ -14,6 +14,7 @@ const CONFIG = {
 export const ezeepOAuthCallback = async (req, res) => {
     const { access_token, refresh_token } = await getAccessToken(req.query.code)
     req.session.accessToken = access_token
+    req.session.refreshToken = refresh_token
     res.redirect('/')
 }
 
@@ -89,6 +90,41 @@ export const getPrinterProperties = async (req, res) => {
 }
 
 export const prepareFileUpload = async (req, res) => {
+    try {
+        const response = await fetch(`${CONFIG.baseURL}/sfapi/PrepareUpload/`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${req.session.accessToken}`,
+            },
+        })
+        const data = await response.json()
+        res.send(data)
+    } catch (error) {
+        console.error('Error fetching configuration:', error)
+    }
+}
+
+function getSasURI() {
+    return
+}
+
+export const fileUpload = async (req, res) => {
+    getSasURI()
+    try {
+        const response = await fetch(`${CONFIG.baseURL}/sfapi/PrepareUpload/`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${req.session.accessToken}`,
+            },
+        })
+        const data = await response.json()
+        res.send(data)
+    } catch (error) {
+        console.error('Error fetching configuration:', error)
+    }
+}
+
+export const printUploadedFile = async (req, res) => {
     try {
         const response = await fetch(`${CONFIG.baseURL}/sfapi/PrepareUpload/`, {
             method: 'GET',
