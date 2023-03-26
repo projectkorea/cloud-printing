@@ -1,6 +1,8 @@
 import qs from 'qs'
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
+import multer from 'multer'
+import FormData from 'form-data'
 dotenv.config()
 
 const CONFIG = {
@@ -98,29 +100,65 @@ export const prepareFileUpload = async (req, res) => {
             },
         })
         const data = await response.json()
-        res.send(data)
+        return data
     } catch (error) {
         console.error('Error fetching configuration:', error)
     }
 }
 
-function getSasURI() {
-    return
-}
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // 파일을 저장할 디렉토리 경로를 설정합니다.
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        // 저장할 파일 이름을 설정합니다.
+        cb(null, Date.now() + '-' + file.originalname)
+    },
+})
+
+const upload = multer({ storage: storage })
 
 export const fileUpload = async (req, res) => {
-    getSasURI()
     try {
-        const response = await fetch(`${CONFIG.baseURL}/sfapi/PrepareUpload/`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${req.session.accessToken}`,
-            },
+        const { fileid, sasURI } = await prepareFileUpload(req)
+        req.session.fileIds = { one: fileid }
+
+        // 파일 업로드를 처리합니다.
+        upload.single('file')(req, res, async function (err) {
+            if (err instanceof multer.MulterError) {
+                console.error('Error uploading file:', err)
+                return res.status(500).send(err.message)
+            } else if (err) {
+                console.error('Error uploading file:', err)
+                return res.status(500).send(err.message)
+            }
+
+            const form = new FormData()
+            form.append('file', req.file.buffer, { filename: req.file.originalname })
+
+            const options = {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${req.session.accessToken}`,
+                    'x-ms-blob-type': 'BlockBlob',
+                    ...form.getHeaders(),
+                },
+                body: form,
+            }
+
+            const response = await fetch(sasURI, options)
+            if (response.status === 201) {
+                return res.sendStatus(201)
+            } else {
+                const data = await response.text()
+                console.error(`Error ${response.status}: ${data}`)
+                return res.status(response.status).send(data)
+            }
         })
-        const data = await response.json()
-        res.send(data)
     } catch (error) {
-        console.error('Error fetching configuration:', error)
+        console.error('Error uploading file:', error)
+        return res.status(500).send(error.message)
     }
 }
 

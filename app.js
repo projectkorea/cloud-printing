@@ -51,12 +51,17 @@ app.use('/ezeep/configuration', getConfiguration)
 app.use('/ezeep/printer', getPrinter)
 app.use('/ezeep/printer-properties', getPrinterProperties)
 app.use('/ezeep/prepareUpload', prepareFileUpload)
-app.use('/ezeep/fileUpload', fileUpload)
+app.use('/ezeep/file-upload', fileUpload)
 app.use('/ezeep/printUploadedFile', printUploadedFile)
 
 app.get('/index.js', (req, res) => {
     res.setHeader('Content-Type', 'text/javascript')
     res.sendFile('index.js', { root: 'public' })
+})
+
+app.get('/index.css', (req, res) => {
+    res.setHeader('Content-Type', 'text/css')
+    res.sendFile('index.css', { root: 'public' })
 })
 
 app.get('/', (req, res) => {
