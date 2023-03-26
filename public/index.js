@@ -48,7 +48,7 @@ async function handleFiles(files) {
 
         // 파일 업로드 요청 생성
         const options = {
-            method: 'GET',
+            method: 'PUT',
             body: formData,
         }
 
