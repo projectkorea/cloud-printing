@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import multer from 'multer'
 import session from 'express-session'
 import {
     ezeepOAuthCallback,
@@ -16,6 +17,10 @@ import { kakaoOAuthCallback } from './routes/kakao.js'
 import { githubOAuthCallback } from './routes/github.js'
 import { githubLoginPage, kakaoLoginPage, ezeepLoginPage } from './routes/login.js'
 dotenv.config()
+
+// multer 설정
+const storage = multer.memoryStorage()
+const upload = multer({ storage })
 
 const app = express()
 app.use(cors())
@@ -51,7 +56,7 @@ app.use('/ezeep/configuration', getConfiguration)
 app.use('/ezeep/printer', getPrinter)
 app.use('/ezeep/printer-properties', getPrinterProperties)
 app.use('/ezeep/prepareUpload', prepareFileUpload)
-app.use('/ezeep/file-upload', fileUpload)
+app.put('/ezeep/file-upload', upload.single('file'), fileUpload)
 app.use('/ezeep/printUploadedFile', printUploadedFile)
 
 app.get('/index.js', (req, res) => {
