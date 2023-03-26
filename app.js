@@ -19,8 +19,12 @@ import { githubLoginPage, kakaoLoginPage, ezeepLoginPage } from './routes/login.
 dotenv.config()
 
 // multer 설정
-const storage = multer.memoryStorage()
-const upload = multer({ storage })
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB
+    },
+})
 
 const app = express()
 app.use(cors())
