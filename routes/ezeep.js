@@ -117,9 +117,8 @@ export const fileUpload = async (req, res) => {
         const options = {
             method: 'PUT',
             headers: {
-                Authorization: `Bearer ${req.session.accessToken}`,
                 'x-ms-blob-type': 'BlockBlob',
-                ...form.getHeaders(),
+                'Content-Type': 'multipart/form-data',
             },
             body: form,
         }
