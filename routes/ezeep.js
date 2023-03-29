@@ -100,6 +100,7 @@ export const prepareFileUpload = async (req, res) => {
             },
         })
         const data = await response.json()
+        console.log('TEST', data)
         return data
     } catch (error) {
         console.error('Error fetching configuration:', error)
