@@ -100,7 +100,6 @@ export const prepareFileUpload = async (req, res) => {
             },
         })
         const data = await response.json()
-        console.log('TEST', data)
         return data
     } catch (error) {
         console.error('Error fetching configuration:', error)
@@ -109,7 +108,7 @@ export const prepareFileUpload = async (req, res) => {
 
 export const fileUpload = async (req, res) => {
     try {
-        const { fileid, sasURI } = await prepareFileUpload(req)
+        const { fileid, sasUri } = await prepareFileUpload(req)
         req.session.fileIds = { one: fileid }
 
         const form = new FormData()
@@ -125,7 +124,7 @@ export const fileUpload = async (req, res) => {
             body: form,
         }
 
-        const response = await fetch(sasURI, options)
+        const response = await fetch(sasUri, options)
 
         if (response.status === 201) {
             return res.sendStatus(201)
