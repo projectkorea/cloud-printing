@@ -109,8 +109,6 @@ export const prepareFileUpload = async (req, res) => {
 export const fileUpload = async (req, res) => {
     try {
         const { fileid, sasUri } = await prepareFileUpload(req)
-        console.log('fileUpload', fileid)
-        req.session.fileIds = { one: fileid }
 
         const form = new FormData()
         form.append('file', req.file.buffer, { filename: req.file.originalname })
@@ -127,6 +125,8 @@ export const fileUpload = async (req, res) => {
         const response = await fetch(sasUri, options)
 
         if (response.status === 201) {
+            req.session.fileIds = { one: fileid }
+            console.log('TEST', req.session.fileIds, fileid)
             return res.sendStatus(201)
         } else {
             const data = await response.text()
@@ -152,7 +152,7 @@ function getTempValue() {
 
 export const printUploadedFile = async (req, res) => {
     try {
-        console.log('TEST', req.session)
+        console.log('TEST2', req.session.fileIds, fileid)
         const fileid = req.session.fileIds?.one
         const { printerid, type } = getTempValue()
         const response = await fetch(`${CONFIG.baseURL}/sfapi/Print/`, {
