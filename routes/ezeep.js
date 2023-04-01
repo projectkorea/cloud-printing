@@ -152,7 +152,7 @@ function getTempValue() {
 
 export const printUploadedFile = async (req, res) => {
     try {
-        console.log('TEST2', req.session.fileIds, fileid)
+        console.log('TEST2', req.session.fileIds)
         const fileid = req.session.fileIds?.one
         const { printerid, type } = getTempValue()
         const response = await fetch(`${CONFIG.baseURL}/sfapi/Print/`, {
