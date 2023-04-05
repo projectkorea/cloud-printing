@@ -16,6 +16,7 @@ const CONFIG = {
 
 export const ezeepOAuthCallback = async (req, res) => {
     if (CONFIG.isUsingEzeepLibrary) {
+        console.log('TEST', req.query)
         const result = await getAccessToken(req.query.code, req.query.code_challenge)
         return result
     } else {
