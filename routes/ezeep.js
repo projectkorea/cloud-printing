@@ -11,13 +11,18 @@ const CONFIG = {
     clientSecret: process.env.CLIENT_SECRET_EZEEP,
     redirectUri: 'https://wiseprint.cloud/oauth/ezeep',
     baseURL: 'https://printapi.ezeep.com',
+    isUsingEzeepLibrary: true,
 }
 
 export const ezeepOAuthCallback = async (req, res) => {
-    const { access_token, refresh_token } = await getAccessToken(req.query.code)
-    req.session.accessToken = access_token
-    req.session.refreshToken = refresh_token
-    res.redirect('/')
+    if (CONFIG.isUsingEzeepLibrary) {
+        console.log('TEST', req, res)
+    } else {
+        const { access_token, refresh_token } = await getAccessToken(req.query.code)
+        req.session.accessToken = access_token
+        req.session.refreshToken = refresh_token
+        res.redirect('/')
+    }
 }
 
 const getAccessToken = async (code) => {
