@@ -16,7 +16,7 @@ const CONFIG = {
 
 export const ezeepOAuthCallback = async (req, res) => {
     if (CONFIG.isUsingEzeepLibrary) {
-        const result = await getAccessToken(req.query.code)
+        const result = await getAccessToken(req.query.code, req.query.code_challenge)
         return result
     } else {
         const { access_token, refresh_token } = await getAccessToken(req.query.code)
@@ -26,7 +26,7 @@ export const ezeepOAuthCallback = async (req, res) => {
     }
 }
 
-const getAccessToken = async (code) => {
+const getAccessToken = async (code, codeVerifier = null) => {
     try {
         const auth = Buffer.from(`${CONFIG.clientID}:${CONFIG.clientSecret}`).toString('base64')
         const option = {
@@ -40,6 +40,7 @@ const getAccessToken = async (code) => {
                 scope: 'printing',
                 code,
                 redirect_uri: CONFIG.redirectUri,
+                code_verifier: codeVerifier,
             }),
         }
         const response = await fetch(CONFIG.url, option)
