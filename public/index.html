@@ -19,6 +19,15 @@
         <script nomodule src="https://cdn.ezeep.com/ezeep-js/ezeep.js"></script>
     </head>
     <body>
+        <ezp-printing
+            clientid="your-client-id"
+            redirecturi="https://wiseprint.cloud/"
+            trigger="button"
+            fileurl="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            filename="dummypdf"
+            filetype="pdf"
+        >
+        </ezp-printing>
         <section style="width: 100vw; height: 100vh; flex-direction: column; align-items: center">
             <div id="hDropZone">
                 <div class="dropzone">Drag & Drop here<input type="file" id="hFileInput" /></div>
