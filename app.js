@@ -69,6 +69,16 @@ app.get('/index.js', (req, res) => {
     res.sendFile('index.js', { root: 'public' })
 })
 
+app.get('/ezeep.js', (req, res) => {
+    res.setHeader('Content-Type', 'text/javascript')
+    res.sendFile('index.js', { root: 'public' })
+})
+
+app.get('/ezeep.esm.js', (req, res) => {
+    res.setHeader('Content-Type', 'text/javascript')
+    res.sendFile('index.js', { root: 'public' })
+})
+
 app.get('/index.css', (req, res) => {
     res.setHeader('Content-Type', 'text/css')
     res.sendFile('index.css', { root: 'public' })
