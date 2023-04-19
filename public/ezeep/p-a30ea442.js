@@ -1,0 +1,1 @@
+import{c as e,a}from"./p-66ea82f4.js";class s{getUserInfo(){return fetch(`https://${a.state.authApiHostUrl}/v1/users/me`,{headers:{Authorization:"Bearer "+a.state.accessToken,"Content-Type":"application/json"},method:"GET"}).then((e=>e.json()))}}const t=e({user:null,theme:"",appearance:""});export{s as E,t as u}
