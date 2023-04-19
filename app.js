@@ -79,6 +79,16 @@ app.get('/ezeep.esm.js', (req, res) => {
     res.sendFile('ezeep.esm.js', { root: 'public' })
 })
 
+app.get('/p-2fd75363.js', (req, res) => {
+    res.setHeader('Content-Type', 'text/javascript')
+    res.sendFile('p-2fd75363.js', { root: 'public' })
+})
+
+app.get('/p-a4d37138.js', (req, res) => {
+    res.setHeader('Content-Type', 'text/javascript')
+    res.sendFile('p-a4d37138.js', { root: 'public' })
+})
+
 app.get('/index.css', (req, res) => {
     res.setHeader('Content-Type', 'text/css')
     res.sendFile('index.css', { root: 'public' })
