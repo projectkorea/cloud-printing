@@ -20,7 +20,10 @@
         <script nomodule src="/ezeep/ezeep.js"></script>
     </head>
     <body>
-        <ezeep-printing
+        <ezp-auth></ezp-auth>
+        <ezp-icon></ezp-icon>
+        <ezp-icon-button></ezp-icon-button>
+        <ezp-printing
             clientid="gPqWd7VgVTD6W3kmDTeyrDhbefGtSJSrIL0uQtLA"
             redirecturi="https://wiseprint.cloud/oauth/ezeep"
             trigger="button"
@@ -28,7 +31,7 @@
             filename="dummypdf"
             filetype="pdf"
         >
-        </ezeep-printing>
+        </ezp-printing>
         <section style="width: 100vw; height: 100vh; flex-direction: column; align-items: center">
             <div id="hDropZone">
                 <div class="dropzone">Drag & Drop here<input type="file" id="hFileInput" /></div>
