@@ -89,6 +89,11 @@ app.get('/p-a4d37138.js', (req, res) => {
     res.sendFile('p-a4d37138.js', { root: 'public' })
 })
 
+app.get('/p-afc88719.entry.js', (req, res) => {
+    res.setHeader('Content-Type', 'text/javascript')
+    res.sendFile('p-afc88719.entry.js', { root: 'public' })
+})
+
 app.get('/index.css', (req, res) => {
     res.setHeader('Content-Type', 'text/css')
     res.sendFile('index.css', { root: 'public' })
