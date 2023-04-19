@@ -71,12 +71,12 @@ app.get('/index.js', (req, res) => {
 
 app.get('/ezeep.js', (req, res) => {
     res.setHeader('Content-Type', 'text/javascript')
-    res.sendFile('index.js', { root: 'public' })
+    res.sendFile('ezeep.js', { root: 'public' })
 })
 
 app.get('/ezeep.esm.js', (req, res) => {
     res.setHeader('Content-Type', 'text/javascript')
-    res.sendFile('index.js', { root: 'public' })
+    res.sendFile('ezeep.esm.js', { root: 'public' })
 })
 
 app.get('/index.css', (req, res) => {
